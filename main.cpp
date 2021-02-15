@@ -2,14 +2,15 @@
 #include "WiFi.h"
 #include "AsyncUDP.h"
 
+//Opsætter det Wifi arduino skal forbinde sig til
 const char * ssid = "AndroidAP";
 const char * password = "zczf2021";
 
-//Jostick værdier
+//Her erklær jostick værdier
 int x = 34;
 int y = 33;
 int joysw = 32;
-
+ 
 boolean stopInit = false;
 
 AsyncUDP udp;
@@ -17,7 +18,7 @@ AsyncUDP udp;
 boolean buttonIsPressed = false;
 
 void setup() {
-  // initialize the joystick as an input:
+  // Indlæser joystick som input værdier
   pinMode(x, INPUT);
   pinMode(y, INPUT);
   pinMode(joysw, INPUT);
@@ -25,12 +26,16 @@ void setup() {
   Serial.begin(9600);
   WiFi.mode(WIFI_STA);
   WiFi.begin(ssid, password);
+  //Hvis wifi forbindelsesforsøg's resultat != "wifi_connected", så print "Wifi failed"
   if (WiFi.waitForConnectResult() != WL_CONNECTED) {
     Serial.println("WiFi Failed");
+    //Hvis en wifi forbindelse ikke bliver oprettet, 
+    //beder vi den om at opdater status igen med en ventetid på 1 sekund.
     while (1) {
       delay(1000);
     }
   }
+
   if (udp.listen(4000)) {
     Serial.print("UDP Listening on IP: ");
     Serial.println(WiFi.localIP());
@@ -58,11 +63,9 @@ void setup() {
     });
   }
 
-  // Send unicast
-  // udp.print("Hello Server!");
-  // udp.
 }
 
+//Metode der tillader os at sende beskeder/kommandoer
 void sendMessage(String msg){
   udp.writeTo((const uint8_t *)msg.c_str(), msg.length(),
               IPAddress(192, 168, 43, 219), 7007);
@@ -72,7 +75,7 @@ void loop() {
   delay(200);
 
   Serial.println("---------");
-  
+  //Printer status for alle vores joystick værdier hver 0.2 sekunder
   Serial.print("Y-axis: ");
   Serial.println(analogRead(y));
   Serial.print("X-axis: ");
