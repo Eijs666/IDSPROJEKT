@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//vi erklærer variablerne for vores udpPackage
 public class UdpPackage {
     private Date date;
     private String name;
@@ -14,11 +15,11 @@ public class UdpPackage {
     private int fromPort;
     private int toPort;
     private static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd 'at' HH:mm:ss z");
-
+    //vi laver en constructor så vi definere alle de værdier udpPackage skal indeholde
     public UdpPackage(String name, String data, InetAddress fromIp, InetAddress toIp, int formPort, int toPort) {
         this(name, data.getBytes(), fromIp, toIp,  formPort,  toPort);
     }
-
+    //denne contsructor indikere når en ip adresse ikke kan blive fundet
     public UdpPackage(String name, byte[] data, String fromIp, String toIp, int formPort, int toPort) throws UnknownHostException {
         this(name, data, InetAddress.getByName(fromIp), InetAddress.getByName(toIp),  formPort,  toPort);
     }
