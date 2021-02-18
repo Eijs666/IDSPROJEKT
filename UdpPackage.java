@@ -33,7 +33,7 @@ public class UdpPackage {
         this.toPort = toPort;
         this.setDate(new Date(System.currentTimeMillis()));
     }
-
+    //vi henter info fra vores controller og sætter dem ind i vores udpPackage.
     public InetAddress getToAdd(){
         return toIp;
     }
