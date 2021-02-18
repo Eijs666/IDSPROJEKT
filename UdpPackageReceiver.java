@@ -12,11 +12,11 @@ import java.util.List;
 public class UdpPackageReceiver implements Runnable {
 
     boolean running = false;
-    DatagramSocket socket;
-    private byte[] buf = new byte[256];
+    DatagramSocket socket; //datagramsocket er en kombination af ip adresse, port og protokol. 
+    private byte[] buf = new byte[256]; // størrelsen af internetpakken
     int port;
-    SendDroneCommand commander;
-    ObservableList<UdpPackage> udpPackages;
+    SendDroneCommand commander; //sender kommandoer 
+    ObservableList<UdpPackage> udpPackages; //det er ligesom en arraylist men her kan vi se når der sker nogle ændringer. en liste af datatyper
 
     public UdpPackageReceiver(List udpPackages, int port, SendDroneCommand commander) {
         this.running = true;
