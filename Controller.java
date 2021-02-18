@@ -50,7 +50,9 @@ public class Controller {
     private ObservableList<UdpPackage> savedPackages = FXCollections.observableArrayList();
     private DatagramSocket sender;
 
+    //Vi indlæser komponenter
     public void initialize() throws UnknownHostException {
+        //Vi printer nogle udppakker, for at bekrædte at vores komponenter er indlæst
         System.out.println("creates list of packages");
         UdpPackage test1 = new UdpPackage("name", "data", InetAddress.getByName("127.0.0.1"), InetAddress.getByName("127.0.0.1"), 4000,4000);
         UdpPackage test2 = new UdpPackage("name", "hello world", InetAddress.getByName("127.0.0.1"), InetAddress.getByName("127.0.0.1"), 4000,4000);
@@ -60,10 +62,10 @@ public class Controller {
         //DRONE
         graphicsContext = canvas.getGraphicsContext2D();
 
-        //add list of items to table
+        //Overblik over modtaget kommandoer, som bliver vist i en tabel
         tableViewLog.setItems(loggedPackages);
 
-        //set columns content
+        //Visuelle elementer som fortæller om info vedrørende kommandoen som er tilsendt.
         logColumnTime.setCellValueFactory(
                 new PropertyValueFactory<UdpPackage,String>("formattedDate")
         );
@@ -85,10 +87,13 @@ public class Controller {
         logColumnToIp.setCellValueFactory(
                 new PropertyValueFactory<UdpPackage, String>("toIp")
         );
-
+        
+        //Alle udpakker som modtages skal indsættes i loggedpackages.
         receiver = new UdpPackageReceiver(loggedPackages, 4000, this::sendDroneMessage);
+        //Vi starter en ny tråd som kan modtage og samtidig behandle udppakker, i vores tilfælde modtager vi pakker og behandler sådan så dronen kan bevæge sig.
         new Thread(receiver).start();
-
+        
+        //Try = vi tester kode der står indenfor tuborgklapper - støder vi ind i fejl, så kør koden der i catch.
         try {
             sender = new DatagramSocket();
         } catch (SocketException e) {
@@ -99,9 +104,15 @@ public class Controller {
 
     public void drawFigure(){
             graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        
+            //Danner en kopi af en firkan, som er vores aktive figur(dronen) til emulatoren
             activeFigure = new sample.Figure.Rectangle();
+        
+            //Vi angiver en startposition til vores figur
             activeFigure.start = new Point((int) droneX, (int) droneY);
             activeFigure.end = new Point((int) moveX, (int) moveY);
+        
+            //Vi indsætter vores dannede figur ind på vores canvas(lærred)
             drawActiveFigure(activeFigure);
     }
 
