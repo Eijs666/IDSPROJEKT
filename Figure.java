@@ -1,7 +1,7 @@
 package sample.Figure;
 
 import javafx.scene.canvas.GraphicsContext;
-
+//Benytter point systemet
 import java.awt.*;
 
 public abstract class Figure {
