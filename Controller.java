@@ -103,9 +103,10 @@ public class Controller {
     }
 
     public void drawFigure(){
+            //Initializer en firkant og tager udgangspunkt i 
             graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         
-            //Danner en kopi af en firkan, som er vores aktive figur(dronen) til emulatoren
+            //Danner en kopi af en firkant, som er vores aktive figur(dronen) til emulatoren
             activeFigure = new sample.Figure.Rectangle();
         
             //Vi angiver en startposition til vores figur
