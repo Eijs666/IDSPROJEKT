@@ -103,7 +103,7 @@ public class Controller {
     }
 
     public void drawFigure(){
-            //Initializer en firkant og tager udgangspunkt i 
+            //Initializer en firkant og tager udgangspunkt i canvas(lærred)
             graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         
             //Danner en kopi af en firkant, som er vores aktive figur(dronen) til emulatoren
