@@ -17,8 +17,7 @@ import javafx.util.Duration;
 import java.net.InetAddress;
 
 public class Main extends Application {
-
-
+//det er her vores scene i GUI køre. vi sætter vores GUI op
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
