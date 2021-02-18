@@ -9,6 +9,7 @@ import java.net.SocketException;
 import java.util.Arrays;
 import java.util.List;
 
+// så vi har lavet en variable som afgører om netværket køre
 public class UdpPackageReceiver implements Runnable {
 
     boolean running = false;
@@ -18,23 +19,25 @@ public class UdpPackageReceiver implements Runnable {
     SendDroneCommand commander; //sender kommandoer 
     ObservableList<UdpPackage> udpPackages; //det er ligesom en arraylist men her kan vi se når der sker nogle ændringer. en liste af datatyper
 
+    //vi laver en constructor så vi kan modtage kommandoer fra vores controller
     public UdpPackageReceiver(List udpPackages, int port, SendDroneCommand commander) {
-        this.running = true;
+        this.running = true; //netværket skal køre så længe det er true
         this.udpPackages = (ObservableList) udpPackages;
         this.commander = commander;
         this.port = port;
+        // vi tester herunder modtagelse af pakker og hvis dette går galt skal fejlen printes ud.
         try {
             socket = new DatagramSocket(port);
         } catch (SocketException e) {
             e.printStackTrace();
         }
     }
-
+    
     public void shutDown(){
         running = false;
     }
 
-    @Override
+    @Override 
     public void run() {
         while (running)
         {
