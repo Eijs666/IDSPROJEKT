@@ -37,7 +37,7 @@ public class Controller {
 
     private UdpPackageReceiver receiver;
 
-    //PLACERING PÅ CANVAS
+    //DRONENS PLACERING PÅ CANVAS
     private int droneX = 450;
     private int droneY = 200;
 
@@ -117,7 +117,7 @@ public class Controller {
             drawActiveFigure(activeFigure);
     }
 
-
+    //Tegner den aktuelle figur
     private void drawActiveFigure(Figure activeFigure) {
         graphicsContext.setStroke(Color.BLACK);
         activeFigure.draw(graphicsContext);
@@ -126,14 +126,21 @@ public class Controller {
 
     //LOGIC FOR DRONE MOVEMENT
     public void move(int xAxis, int yAxis) {
+        
+        //Dronens placering tager udgangspunkt i canvas dimensioner
         graphicsContext.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+        
+        //Vi visualiserer kun den aktuelle figur
         activeFigure = new sample.Figure.Rectangle();
+        
         droneX += xAxis;
         droneY += yAxis;
         moveX += xAxis;
         moveY += yAxis;
+        //Tilsætter de nye placeringer til den aktive figur
         activeFigure.start = new Point((int) droneX, (int) droneY);
         activeFigure.end = new Point((int) moveX, (int) moveY);
+        
         drawActiveFigure(activeFigure);
 
     }
